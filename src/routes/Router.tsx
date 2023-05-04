@@ -5,8 +5,11 @@ import { LandingPage } from "./LandingPage/LandingPage";
 
 const ContentWrapper = lazy(() => import("./ContentWrapper/ContentWrapper"));
 const SignIn = lazy(() => import("./SignIn/SignIn"));
+const SignUpPage = lazy(()=> import("./SignUpPage/SignUpPage"));
 const Protected = lazy(() => import("./Protected/Protected"));
+const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
+const AboutUs = lazy(() => import("./AboutUs/AboutUs"))
 
 export const Router = (): ReactElement => {
   return (
@@ -19,6 +22,14 @@ export const Router = (): ReactElement => {
             </Suspense>
           }
           path={paths.signIn}
+        />
+        <Route
+          element={
+            <Suspense fallback={null}>
+              <SignUpPage />
+            </Suspense>
+          }
+          path={paths.signUp}
         />
         <Route
           element={
@@ -36,8 +47,22 @@ export const Router = (): ReactElement => {
           }
           path={"/collection"}
         />
-        {/* Collections
-          AboutUs */}
+        <Route
+          element={
+            <Suspense fallback={null}>
+              <Collections />
+            </Suspense>
+          }
+          path={"/collections"}
+        />
+        <Route
+          element={
+            <Suspense fallback={null}>
+              <AboutUs />
+            </Suspense>
+          }
+          path={"/about"}
+        />
         <Route
           element={
             <Suspense fallback={null}>

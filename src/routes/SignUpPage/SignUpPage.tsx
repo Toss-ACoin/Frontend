@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import bg from "./assets/bg.svg";
 
-export const SignUpPage = (): ReactElement => {
+const SignUpPage = (): ReactElement => {
   /*const status = useSessionStatus();
   const anonService = useAnonService();
   const { mutate } = useMutation(anonService.signIn);*/
@@ -39,8 +39,8 @@ export const SignUpPage = (): ReactElement => {
           position="absolute"
           top="7"
         >
-          <Text color="red.400">Toss</Text>
-          <Text color="white">A</Text>
+          <Text color="red.500">Toss</Text>
+          <Text color="black">A</Text>
           <Text color="green.100">Coin</Text>
         </Flex>
       </Link>
@@ -63,19 +63,21 @@ export const SignUpPage = (): ReactElement => {
           <Text fontSize="2xl" fontWeight="regular" maxW="96">
             To check out your collections
           </Text>
-          <Button
-            bg="green.100"
-            boxShadow="md"
-            fontSize="2xl"
-            fontWeight="semibold"
-            h="fit-content"
-            px="16"
-            py="4"
-            textColor="white"
-            w="fit-content"
-          >
-            <Text>Sign In</Text>
-          </Button>
+          <Link to={paths.signIn}>
+            <Button
+              bg="green.100"
+              boxShadow="md"
+              fontSize="2xl"
+              fontWeight="semibold"
+              h="fit-content"
+              px="16"
+              py="4"
+              textColor="white"
+              w="fit-content"
+            >
+              <Text>Sign In</Text>
+            </Button>
+          </Link>
         </Flex>
         <Flex
           alignItems="center"
@@ -153,3 +155,4 @@ export const SignUpPage = (): ReactElement => {
     </>
   );
 };
+export default SignUpPage;

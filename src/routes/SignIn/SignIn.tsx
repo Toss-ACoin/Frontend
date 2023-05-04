@@ -133,19 +133,21 @@ const SignIn = (): ReactElement => {
           <Text fontSize="2xl" fontWeight="regular" maxW="96">
             Create an account to start collecting money from around the world
           </Text>
-          <Button
-            bg="green.100"
-            boxShadow="md"
-            fontSize="2xl"
-            fontWeight="semibold"
-            h="fit-content"
-            px="16"
-            py="4"
-            textColor="white"
-            w="fit-content"
-          >
-            <Text>Sign Up</Text>
-          </Button>
+          <Link to={paths.signUp}>
+            <Button
+              bg="green.100"
+              boxShadow="md"
+              fontSize="2xl"
+              fontWeight="semibold"
+              h="fit-content"
+              px="16"
+              py="4"
+              textColor="white"
+              w="fit-content"
+            >
+              <Text>Sign Up</Text>
+            </Button>
+          </Link>
         </Flex>
       </Flex>
     </>
