@@ -31,7 +31,7 @@ const Collections = (): ReactElement => {
   const collectionService = useCollectionService();
 
   const { data, status } = useQuery(
-    collectionService.collectionListKey(),
+    collectionService.collectionListKey("collections"),
     collectionService.collectionList
   );
   if (status === "loading") {

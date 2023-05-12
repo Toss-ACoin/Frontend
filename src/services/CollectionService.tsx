@@ -1,5 +1,4 @@
 import { QueryFunction } from "@tanstack/react-query";
-import { getCollection } from "@utils/mock";
 import {
   createContext,
   ReactElement,
