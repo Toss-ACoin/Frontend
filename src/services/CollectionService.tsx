@@ -24,13 +24,25 @@ export type Collection = {
   donation: DonationData[];
 };
 
+export type Collections = {
+  title: string;
+  goal: number;
+  owner_name: string;
+  image: Uint16Array[];
+  owner_surname: string;
+  id: number;
+  fundraising_start: string;
+  fundraising_end: string;
+  collected_money: number;
+};
+
 type CollectionKey = ["collection", string] | ["collection"];
 type CollectionListKey = ["collections", string] | ["collections"];
 
 export type CollectionService = {
   collection: QueryFunction<Collection | undefined, CollectionKey>;
   collectionKey: (query?: string) => CollectionKey;
-  collectionList: QueryFunction<Collection[] | undefined, CollectionListKey>;
+  collectionList: QueryFunction<Collections[] | undefined, CollectionListKey>;
   collectionListKey: (query?: string) => CollectionListKey;
 };
 

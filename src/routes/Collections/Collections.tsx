@@ -1,15 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import { Spinner } from "@chakra-ui/react";
 import {
+  Box,
+  Card,
+  CardBody,
   Flex,
   Heading,
-  Text,
-  Card,
-  Stack,
-  CardBody,
   Progress,
   SimpleGrid,
+  Spinner,
+  Stack,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import { TopBar } from "@components/TopBar/TopBar";
 import { useCollectionService } from "@services/CollectionService";
@@ -35,11 +35,12 @@ const Collections = (): ReactElement => {
     collectionService.collectionList
   );
   if (status === "loading") {
-    return (<Spinner size="xl"/>);
+    return <Spinner size="xl" />;
   }
   if (status === "error") {
     return <Box>Error</Box>;
   }
+
   return (
     <>
       <TopBar />
@@ -57,7 +58,7 @@ const Collections = (): ReactElement => {
                 <CardBody>
                   <Image src="../assets/img.png" />
                   <Stack mt="6" spacing="3">
-                    <Heading size="xl">Lorem ipsum</Heading>
+                    <Heading size="xl">{item.title}</Heading>
                     <Progress
                       borderRadius="lg"
                       colorScheme="red"
@@ -65,7 +66,7 @@ const Collections = (): ReactElement => {
                       value={20}
                     />
                     <Text color="black" fontSize="xl" fontWeight={"bold"}>
-                      2000$ of 10000$
+                      {item.collected_money}$ of {item.goal}$
                     </Text>
                   </Stack>
                 </CardBody>
