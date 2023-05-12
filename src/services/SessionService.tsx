@@ -128,12 +128,12 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                     encodeURIComponent(value.email + ":" + value.password)
                   )
                 );
-
+              console.log(str);
               const response = await fetch(`${urlBase}/home`, {
                 method: "GET",
                 headers: {
                   accept: "*/*",
-                  "Access-Control-Allow-Origin": "*",
+                  //"Access-Control-Allow-Origin": "*",
                   Authorization: str,
                 },
 

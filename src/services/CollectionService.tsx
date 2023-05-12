@@ -7,6 +7,7 @@ import {
   useContext,
   useMemo,
 } from "react";
+import { urlBase } from "./SessionService";
 
 export type DonationData = {
   _id: string;
@@ -74,7 +75,19 @@ export const CollectionServiceProvider = ({
           if (!query) {
             return undefined;
           }
-          const result = await Promise.resolve(getCollection(query));
+          const response = await fetch(`${urlBase}/home`, {
+            method: "GET",
+            headers: {
+              accept: "*/*",
+              //"Access-Control-Allow-Origin": "*",
+            },
+
+            mode: "no-cors",
+          });
+          console.log(response);
+          const result = await response.json();
+          console.log(result);
+          //const result = await Promise.resolve(getCollection(query));
 
           return result;
         },
