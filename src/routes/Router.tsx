@@ -5,11 +5,11 @@ import { LandingPage } from "./LandingPage/LandingPage";
 
 const ContentWrapper = lazy(() => import("./ContentWrapper/ContentWrapper"));
 const SignIn = lazy(() => import("./SignIn/SignIn"));
-const SignUpPage = lazy(()=> import("./SignUpPage/SignUpPage"));
+const SignUpPage = lazy(() => import("./SignUpPage/SignUpPage"));
 const Protected = lazy(() => import("./Protected/Protected"));
 const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
-const AboutUs = lazy(() => import("./AboutUs/AboutUs"))
+const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
 
 export const Router = (): ReactElement => {
   return (

@@ -25,10 +25,13 @@ export type Collection = {
 };
 
 type CollectionKey = ["collection", string] | ["collection"];
+type CollectionListKey = ["collections", string] | ["collections"];
 
 export type CollectionService = {
   collection: QueryFunction<Collection | undefined, CollectionKey>;
   collectionKey: (query?: string) => CollectionKey;
+  collectionList: QueryFunction<Collection[] | undefined, CollectionListKey>;
+  collectionListKey: (query?: string) => CollectionListKey;
 };
 
 export type CollectionServiceNullableValue =
@@ -94,6 +97,30 @@ export const CollectionServiceProvider = ({
 
         collectionKey: (query) => {
           return query ? ["collection", query] : ["collection"];
+        },
+
+        collectionList: async ({ queryKey }) => {
+          const [, query] = queryKey;
+
+          if (!query) {
+            return undefined;
+          }
+          const response = await fetch(`${urlBase}/home`, {
+            method: "GET",
+            headers: {
+              accept: "*/*",
+              "Access-Control-Allow-Origin": "*",
+            },
+          });
+          console.log(response);
+          const result = await response.json();
+          console.log(result);
+          //const result = await Promise.resolve(getCollection(query));
+
+          return result.array;
+        },
+        collectionListKey: (query) => {
+          return query ? ["collections", query] : ["collections"];
         },
       },
     };

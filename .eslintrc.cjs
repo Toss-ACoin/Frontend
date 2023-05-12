@@ -45,7 +45,7 @@ module.exports = {
       "error",
       { enforceForJSX: true },
     ],
-    "prettier/prettier": ["error", { endOfLine: auto }],
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
     "jsx-a11y/label-has-associated-control": "off",
     "react/react-in-jsx-scope": "off",
   },
