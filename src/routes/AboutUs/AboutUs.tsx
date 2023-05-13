@@ -37,7 +37,7 @@ const AboutUs = (): ReactElement => {
           w="80%"
         >
           <Heading color="white">About Us</Heading>
-          <Text color="white" fontsize="xl" padding="15px" textAlign="justify">
+          <Text color="white" fontSize="xl" padding="15px" textAlign="justify">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
