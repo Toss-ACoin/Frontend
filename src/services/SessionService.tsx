@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 
-export const urlBase = "http://localhost:8080";
+export const urlBase = "http://ec2-16-170-80-68.eu-north-1.compute.amazonaws.com";
 
 export type AuthService = {
   signOut: () => Promise<void>;
