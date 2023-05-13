@@ -7,7 +7,8 @@ import {
   useMemo,
 } from "react";
 
-export const urlBase = "http://ec2-16-170-80-68.eu-north-1.compute.amazonaws.com";
+export const urlBase =
+  "http://ec2-16-170-80-68.eu-north-1.compute.amazonaws.com";
 
 export type AuthService = {
   signOut: () => Promise<void>;
@@ -128,18 +129,13 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                     encodeURIComponent(value.email + ":" + value.password)
                   )
                 );
-              console.log(str);
               const response = await fetch(`${urlBase}/home`, {
                 method: "GET",
                 headers: {
                   accept: "*/*",
-                  //"Access-Control-Allow-Origin": "*",
                   Authorization: str,
                 },
-
-                mode: "no-cors",
               });
-              console.log(response);
               const result = await response.json();
               if (!response.ok || !result) {
                 throw new Error(result.error);

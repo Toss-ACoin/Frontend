@@ -1,13 +1,4 @@
-import {
-  Button,
-  Box,
-  Flex,
-  Heading,
-  Input,
-  NumberInput,
-  NumberInputField,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { TopBar } from "@components/TopBar/TopBar";
 import { ReactElement } from "react";
 import lp from "./assets/lp.png";
@@ -38,7 +29,7 @@ const AboutUs = (): ReactElement => {
         >
           <Heading color="white">About Us</Heading>
           <Text color="white" fontSize="xl" padding="15px" textAlign="justify">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
+            {`Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
@@ -46,7 +37,7 @@ const AboutUs = (): ReactElement => {
             remaining essentially unchanged. It was popularised in the 1960s
             with the release of Letraset sheets containing Lorem Ipsum passages,
             and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            PageMaker including versions of Lorem Ipsum.`}
           </Text>
         </Flex>
       </Flex>

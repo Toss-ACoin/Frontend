@@ -98,9 +98,9 @@ export const CollectionServiceProvider = ({
 
             mode: "no-cors",
           });
-          console.log(response);
+
           const result = await response.json();
-          console.log(result);
+
           //const result = await Promise.resolve(getCollection(query));
 
           return result;
@@ -123,9 +123,9 @@ export const CollectionServiceProvider = ({
               "Access-Control-Allow-Origin": "*",
             },
           });
-          console.log(response);
+
           const result = await response.json();
-          console.log(result);
+
           //const result = await Promise.resolve(getCollection(query));
 
           return result.array;

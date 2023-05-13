@@ -11,6 +11,9 @@ import bg from "./assets/bg.svg";
 
 const SignIn = (): ReactElement => {
   const status = useSessionStatus();
+  if (status === "auth") {
+    return <Navigate replace to={paths.profile} />;
+  }
   const anonService = useAnonService();
   const { mutate } = useMutation(anonService.signIn);
   const toast = useToast();
@@ -32,9 +35,7 @@ const SignIn = (): ReactElement => {
       });
     },
   });
-  if (status === "auth") {
-    return <Navigate replace to={paths.landingPage} />;
-  }
+
   return (
     <>
       <Link to={paths.landingPage}>

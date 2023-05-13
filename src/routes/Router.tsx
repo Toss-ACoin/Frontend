@@ -31,46 +31,46 @@ export const Router = (): ReactElement => {
           }
           path={paths.signUp}
         />
-        <Route
-          element={
-            <Suspense fallback={null}>
-              <LandingPage />
-            </Suspense>
-          }
-          path={paths.landingPage}
-        />
-        <Route
-          element={
-            <Suspense fallback={null}>
-              <CollectionPage />
-            </Suspense>
-          }
-          path={"/collection"}
-        />
-        <Route
-          element={
-            <Suspense fallback={null}>
-              <Collections />
-            </Suspense>
-          }
-          path={"/collections"}
-        />
-        <Route
-          element={
-            <Suspense fallback={null}>
-              <AboutUs />
-            </Suspense>
-          }
-          path={"/about"}
-        />
-        <Route
-          element={
-            <Suspense fallback={null}>
-              <Protected />
-            </Suspense>
-          }
-        >
-          <Route element={<ContentWrapper />}>
+        <Route element={<ContentWrapper />}>
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <LandingPage />
+              </Suspense>
+            }
+            path={paths.landingPage}
+          />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <CollectionPage />
+              </Suspense>
+            }
+            path={"/collection"}
+          />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <Collections />
+              </Suspense>
+            }
+            path={"/collections"}
+          />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <AboutUs />
+              </Suspense>
+            }
+            path={"/about"}
+          />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <Protected />
+              </Suspense>
+            }
+          >
             {/* ----Temp--- */}
             <Route
               element={
