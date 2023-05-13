@@ -42,7 +42,7 @@ const Collections = (): ReactElement => {
       {data.map((item, key) => {
         const endsIn =
           new Date(item.fundraising_end).getTime() - new Date().getTime();
-        if (endsIn < 0) {
+        if (endsIn > 0) {
           return (
             <Flex
               _hover={{
