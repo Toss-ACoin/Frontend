@@ -1,10 +1,12 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Flex, Text } from "@chakra-ui/react";
+import { useSessionStatus } from "@services/SessionService";
 import { paths } from "@utils/paths";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { AuthMenu } from "./AuthMenu/AuthMenu";
 
 export const TopBar = (): ReactElement => {
+  const sessionStatus = useSessionStatus();
   return (
     <Flex
       alignItems="center"
@@ -53,17 +55,42 @@ export const TopBar = (): ReactElement => {
           </Link>
         </Flex>
       </Flex>
-      <Link to={paths.profile}>
-        <Icon
-          _hover={{
-            color: "red.200",
-          }}
-          as={PersonOutlineIcon}
-          h="12"
-          transitionDuration="0.2s"
-          w="12"
-        />
-      </Link>
+      {sessionStatus === "auth" ? (
+        <AuthMenu />
+      ) : (
+        <Flex fontSize="xl" fontWeight="semibold" gap="8">
+          <Link to={paths.signIn}>
+            <Text
+              _hover={{
+                bgColor: "green.400",
+              }}
+              bgColor="green.300"
+              borderRadius="3xl"
+              color="white"
+              px="6"
+              py="2"
+              transitionDuration="0.2s"
+            >
+              Sign in
+            </Text>
+          </Link>
+          <Link to={paths.signUp}>
+            <Text
+              _hover={{
+                bgColor: "red.500",
+              }}
+              bgColor="red.300"
+              borderRadius="3xl"
+              color="white"
+              px="6"
+              py="2"
+              transitionDuration="0.2s"
+            >
+              Sign up
+            </Text>
+          </Link>
+        </Flex>
+      )}
     </Flex>
   );
 };

@@ -7,8 +7,7 @@ import {
   useMemo,
 } from "react";
 
-export const urlBase =
-  "https://toss-a-coin.azurewebsites.net";
+export const urlBase = "https://toss-a-coin.azurewebsites.net";
 
 export type AuthService = {
   signOut: () => Promise<void>;
