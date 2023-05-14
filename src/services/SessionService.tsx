@@ -8,7 +8,7 @@ import {
 } from "react";
 
 export const urlBase =
-  "http://ec2-16-170-80-68.eu-north-1.compute.amazonaws.com";
+  "http://ec2-16-16-160-27.eu-north-1.compute.amazonaws.com";
 
 export type AuthService = {
   signOut: () => Promise<void>;
