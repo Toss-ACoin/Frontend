@@ -10,6 +10,7 @@ const Protected = lazy(() => import("./Protected/Protected"));
 const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
 const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
+const UserPanel = lazy(() => import("./UserPanel/UserPanel"));
 
 export const Router = (): ReactElement => {
   return (
@@ -75,7 +76,7 @@ export const Router = (): ReactElement => {
             <Route
               element={
                 <Suspense fallback={null}>
-                  <LandingPage />
+                  <UserPanel />
                 </Suspense>
               }
               path={paths.profile}
