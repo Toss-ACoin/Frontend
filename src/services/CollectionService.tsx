@@ -113,16 +113,18 @@ export const CollectionServiceProvider = ({
         collectionList: async ({ queryKey }) => {
           const [, query] = queryKey;
 
-          if (!query) {
-            return undefined;
-          }
-          const response = await fetch(`${urlBase}/home`, {
-            method: "GET",
-            headers: {
-              accept: "*/*",
-              "Access-Control-Allow-Origin": "*",
-            },
-          });
+          console.log(query);
+
+          const response = await fetch(
+            `${urlBase}/search?phrase=${query ? query : ""}`,
+            {
+              method: "GET",
+              headers: {
+                accept: "*/*",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
 
           const result = await response.json();
 

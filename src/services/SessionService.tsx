@@ -128,7 +128,7 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                     encodeURIComponent(value.email + ":" + value.password)
                   )
                 );
-              const response = await fetch(`${urlBase}/home`, {
+              const response = await fetch(`${urlBase}/loginBasic`, {
                 method: "GET",
                 headers: {
                   accept: "*/*",
