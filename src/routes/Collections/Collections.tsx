@@ -3,6 +3,7 @@ import {
   Flex,
   Heading,
   Highlight,
+  Icon,
   Image,
   Input,
   InputGroup,
@@ -13,10 +14,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useDebounce } from "@hooks/useDebounce";
+import SearchOffOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useCollectionService } from "@services/CollectionService";
 import { useQuery } from "@tanstack/react-query";
+import { paths } from "@utils/paths";
 import { ReactElement, useState, useTransition } from "react";
+import { Link } from "react-router-dom";
 
 const Collections = (): ReactElement => {
   const collectionService = useCollectionService();
@@ -36,7 +40,7 @@ const Collections = (): ReactElement => {
   );
 
   return (
-    <Flex alignItems="center" flexDir="column">
+    <Flex alignItems="center" flexDir="column" h="calc(100vh - 80px)">
       <InputGroup
         alignItems="center"
         display="flex"
@@ -69,6 +73,57 @@ const Collections = (): ReactElement => {
         <Spinner size="xl" />
       ) : status === "error" || !data ? (
         <Box>Error</Box>
+      ) : data.length <= 0 ? (
+        <Flex alignItems="center" h="full" justifyContent="center" w="full">
+          <Flex
+            borderRadius="lg"
+            boxShadow="md"
+            flexDir="column"
+            gap="4"
+            p="32"
+            w="35%"
+          >
+            <Icon as={SearchOffOutlinedIcon} color="red.500" h="20" w="full" />
+
+            <Text
+              fontSize="2xl"
+              fontWeight="semibold"
+              noOfLines={3}
+              textAlign="center"
+            >
+              <Highlight
+                query={query}
+                styles={{ fontWeight: "bold", color: "green.500" }}
+              >
+                {`Sorry we couldn't find any matches for ${query}`}
+              </Highlight>
+            </Text>
+
+            <Link to={paths.create}>
+              <Box
+                _hover={{
+                  bgColor: "green.300",
+                }}
+                bgColor="green.400"
+                borderRadius="md"
+                color="white"
+                fontSize="xl"
+                fontWeight="semibold"
+                noOfLines={2}
+                px="4"
+                py="2"
+                textAlign="center"
+              >
+                <Highlight
+                  query="collections"
+                  styles={{ fontWeight: "bold", color: "red.300" }}
+                >
+                  Create your collections
+                </Highlight>
+              </Box>
+            </Link>
+          </Flex>
+        </Flex>
       ) : (
         <SimpleGrid
           columnGap="8"
