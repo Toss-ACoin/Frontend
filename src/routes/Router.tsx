@@ -10,6 +10,9 @@ const Protected = lazy(() => import("./Protected/Protected"));
 const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
 const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
+const CreateCollection = lazy(
+  () => import("./CreateCollection/CreateCollection")
+);
 
 export const Router = (): ReactElement => {
   return (
