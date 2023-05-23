@@ -82,6 +82,15 @@ export const Router = (): ReactElement => {
             />
             {/* ---------- */}
             {/* afterLogIn for example profile settings create collectons etc*/}
+
+            <Route
+              element={
+                <Suspense fallback={null}>
+                  <CreateCollection />
+                </Suspense>
+              }
+              path={paths.create}
+            />
           </Route>
         </Route>
       </Routes>
