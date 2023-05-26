@@ -6,7 +6,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const Protected = (): ReactElement => {
   const status = useSessionStatus();
-  if (status === "anon") {
+  if (status !== "auth") {
     return <Navigate replace to={paths.signIn} />;
   }
 
