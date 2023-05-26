@@ -16,7 +16,7 @@ const SignUpPage = (): ReactElement => {
     return <Navigate replace to={paths.profile} />;
   }
   const anonService = useAnonService();
-  const { mutate } = useMutation(anonService.signIn);
+  const { mutate } = useMutation(anonService.signUp);
 
   const formik = useFormik({
     initialValues: {
