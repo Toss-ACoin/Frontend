@@ -1,20 +1,22 @@
 import { Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { Facebook } from "@components/Facebook/Facebook";
 import { Google } from "@components/Google/Google";
-import { ReactElement } from "react";
-/*
 import { useAnonService, useSessionStatus } from "@services/SessionService";
-import { useMutation } from "@tanstack/react-query";*/
+import { useMutation } from "@tanstack/react-query";
+import { ReactElement } from "react";
 
 import { paths } from "@utils/paths";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
+import { Link, Navigate } from "react-router-dom";
 import bg from "./assets/bg.svg";
 
 const SignUpPage = (): ReactElement => {
-  /*const status = useSessionStatus();
+  const status = useSessionStatus();
+  if (status === "auth") {
+    return <Navigate replace to={paths.profile} />;
+  }
   const anonService = useAnonService();
-  const { mutate } = useMutation(anonService.signIn);*/
+  const { mutate } = useMutation(anonService.signUp);
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +25,7 @@ const SignUpPage = (): ReactElement => {
       password: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      mutate(values);
     },
   });
 
