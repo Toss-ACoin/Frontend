@@ -50,7 +50,7 @@ const CreateCollection = (): ReactElement => {
       >
         <Heading color="black">Create your Collection</Heading>
         <form onSubmit={collection.handleSubmit}>
-          <Flex flexDir="column" gap="8" w="500px">
+          <Flex alignItems="center" flexDir="column" gap="8" w="500">
             <FormControl isRequired>
               <FormLabel>Title</FormLabel>
               <Input
