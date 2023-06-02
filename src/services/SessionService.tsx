@@ -147,8 +147,18 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
               return Promise.resolve();
             },
 
-            signUp: (values) => {
-              console.log(values);
+            signUp: async (value) => {
+              const response = await fetch(`${urlBase}/register`, {
+                method: "POST",
+                headers: {
+                  accept: "*/*",
+                },
+                body: JSON.stringify({ value }),
+              });
+              const result = await response.json();
+              if (!response.ok || !result) {
+                throw new Error(result.error);
+              }
 
               return Promise.resolve();
             },
