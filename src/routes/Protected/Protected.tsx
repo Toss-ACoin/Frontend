@@ -12,7 +12,7 @@ const Protected = (): ReactElement => {
 
   return (
     <Box data-testid="outer" inset={0} zIndex={-1}>
-      <Flex flexDirection="column" h="100vh">
+      <Flex flexDirection="column" h="calc(100vh - 80px)">
         <Outlet />
       </Flex>
     </Box>

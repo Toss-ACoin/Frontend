@@ -7,9 +7,9 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useFormik } from "formik";
 import { ReactElement } from "react";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import lp from "./assets/lp.png";
 
 const CreateCollection = (): ReactElement => {
@@ -32,7 +32,7 @@ const CreateCollection = (): ReactElement => {
       bgPosition="top"
       bgRepeat="no-repeat"
       bgSize="cover"
-      h="calc(100vh - 80px)"
+      h="full"
       justify="center"
       w="full"
     >
@@ -50,7 +50,7 @@ const CreateCollection = (): ReactElement => {
       >
         <Heading color="black">Create your Collection</Heading>
         <form onSubmit={collection.handleSubmit}>
-          <Flex flexDir="column" gap="8" w="500px">
+          <Flex flexDir="column" gap="4" w="500px">
             <FormControl isRequired>
               <FormLabel>Title</FormLabel>
               <Input
