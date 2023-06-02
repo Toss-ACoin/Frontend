@@ -11,6 +11,10 @@ const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
 const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
 const UserPanel = lazy(() => import("./UserPanel/UserPanel"));
+const CreateCollection = lazy(
+  () => import("./CreateCollection/CreateCollection")
+);
+
 
 export const Router = (): ReactElement => {
   return (
@@ -83,6 +87,15 @@ export const Router = (): ReactElement => {
             />
             {/* ---------- */}
             {/* afterLogIn for example profile settings create collectons etc*/}
+
+            <Route
+              element={
+                <Suspense fallback={null}>
+                  <CreateCollection />
+                </Suspense>
+              }
+              path={paths.create}
+            />
           </Route>
         </Route>
       </Routes>
