@@ -16,7 +16,7 @@ export type DonationData = {
 export type Collection = {
   title: string;
   goal: number;
-  value: number;
+  collected_money: number;
   image: string[];
   description: string[];
   id: number;
