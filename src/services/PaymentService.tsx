@@ -110,7 +110,7 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-              body: JSON.stringify(bodyValue),
+              body: new URLSearchParams(JSON.stringify(bodyValue)),
             }
           );
           const result = await response.json();
