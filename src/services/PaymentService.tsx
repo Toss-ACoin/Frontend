@@ -50,12 +50,26 @@ const getToken = async () => {
       },
     }
   );
-  console.log(response);
+
   const result = await response.json();
   if (!response.ok) {
     throw new Error("error");
   }
   return Promise.resolve(result.token);
+};
+
+const getIp = async () => {
+  const response = await fetch(`https://geolocation-db.com/json/`, {
+    method: "GET",
+    headers: {
+      accept: "*/*",
+    },
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error("error");
+  }
+  return Promise.resolve(result.IPv4);
 };
 
 export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
@@ -68,7 +82,9 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
       isInitialized: true,
       value: {
         sendPayment: async () => {
+          const ip = await getIp();
           const bodyValue = {
+            customerIp: ip,
             merchantPosId: "467060",
             description: "RTV market",
             currencyCode: "PLN",
