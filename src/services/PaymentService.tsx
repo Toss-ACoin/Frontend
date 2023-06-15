@@ -106,7 +106,9 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
             {
               method: "POST",
               headers: {
-                accept: "*/*",
+                "Accept-Encoding": "gzip, deflate, br",
+                Connection: "keep-alive",
+                Accept: "*/*",
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
