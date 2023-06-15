@@ -4,29 +4,26 @@ import {
   Flex,
   Heading,
   Highlight,
-  Image,
   Progress,
   Spinner,
   Text,
 } from "@chakra-ui/react";
 import { useCollectionService } from "@services/CollectionService";
 import { useQuery } from "@tanstack/react-query";
-import { paths } from "@utils/paths";
+import { paths, useCollectionId } from "@utils/paths";
 import { ReactElement } from "react";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Bubble } from "./Bubble/Bubble";
-import { ImgCarousel } from "./ImgCarousel/ImgCarousel";
 
 const CollectionPage = (): ReactElement => {
-  const [queryParameters] = useSearchParams();
-  const id = queryParameters.get("id");
+  const id = useCollectionId();
   const collectionService = useCollectionService();
   if (!id) {
     return <Navigate to={paths.notFound} />;
   }
 
   const { data, status } = useQuery(
-    collectionService.collectionKey(id),
+    collectionService.collectionKey(`${id}`),
     collectionService.collection
   );
   if (status === "loading") {
@@ -42,7 +39,7 @@ const CollectionPage = (): ReactElement => {
         maxH="calc(100vh - 80px - 128px)"
         maxW="calc(100vw - 256px)"
       >
-        <ImgCarousel imgArray={data.imgs} />
+        {/* <ImgCarousel imgArray={data.image} /> */}
         <Flex flexDir="column" gap="6" maxH="560px">
           <Text fontSize="4xl" fontWeight="semibold">
             {data.title}
@@ -61,16 +58,7 @@ const CollectionPage = (): ReactElement => {
       <Flex flexDir="column" gap="8">
         <Heading>Description</Heading>
         <Flex flexDir="column" fontSize="xl" gap="4">
-          {data.description.map((desc, key) => {
-            return (
-              <>
-                <Text key={key}>{desc}</Text>
-                {data.imgs[key] && (
-                  <Image key={key} margin="auto" src={data.imgs[key]} w="30%" />
-                )}
-              </>
-            );
-          })}
+          {data?.description}
         </Flex>
       </Flex>
       <Flex

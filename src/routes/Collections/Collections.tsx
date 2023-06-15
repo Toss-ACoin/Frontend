@@ -20,9 +20,10 @@ import { useCollectionService } from "@services/CollectionService";
 import { useQuery } from "@tanstack/react-query";
 import { paths } from "@utils/paths";
 import { ReactElement, useState, useTransition } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Collections = (): ReactElement => {
+  const navigate = useNavigate();
   const collectionService = useCollectionService();
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
@@ -170,6 +171,7 @@ const Collections = (): ReactElement => {
                   flexDir="column"
                   height="96"
                   key={key}
+                  onClick={() => navigate(paths.collection(item.id))}
                   overflow="hidden"
                   transitionDuration="0.5s"
                   w="72"

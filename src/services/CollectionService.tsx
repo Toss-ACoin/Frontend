@@ -6,7 +6,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { urlBase } from "./SessionService";
+import { SessionService, urlBase } from "./SessionService";
 
 export type DonationData = {
   _id: string;
@@ -17,7 +17,7 @@ export type Collection = {
   title: string;
   goal: number;
   value: number;
-  imgs: string[];
+  image: string[];
   description: string[];
   id: number;
   donation: DonationData[];
@@ -61,7 +61,7 @@ export const CollectionService = createContext<CollectionServiceNullableValue>({
 export const useCollectionService = (): CollectionService => {
   const context = useContext(CollectionService);
 
-  if (context.isInitialized !== true) {
+  if (!context.isInitialized) {
     throw new Error("CollectionService not defined");
   }
 
@@ -79,7 +79,11 @@ type Props = {
 export const CollectionServiceProvider = ({
   children,
 }: Props): ReactElement => {
+  const context = useContext(SessionService);
   const value = useMemo<CollectionServiceNullableValue>(() => {
+    if (context.status !== "auth") {
+      return { isInitialized: false };
+    }
     return {
       isInitialized: true,
       value: {
@@ -89,18 +93,19 @@ export const CollectionServiceProvider = ({
           if (!query) {
             return undefined;
           }
-          const response = await fetch(`${urlBase}/home`, {
-            method: "GET",
-            headers: {
-              accept: "*/*",
-              //"Access-Control-Allow-Origin": "*",
-            },
-
-            mode: "no-cors",
-          });
+          const response = await context.value.fetcher(
+            `${urlBase}/fundraising?id=${query}`,
+            {
+              method: "GET",
+              headers: {
+                accept: "*/*",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
 
           const result = await response.json();
-
+          console.log(result);
           //const result = await Promise.resolve(getCollection(query));
 
           return result;
@@ -112,8 +117,6 @@ export const CollectionServiceProvider = ({
 
         collectionList: async ({ queryKey }) => {
           const [, query] = queryKey;
-
-          console.log(query);
 
           const response = await fetch(
             `${urlBase}/search?phrase=${query ? query : ""}`,
@@ -137,7 +140,7 @@ export const CollectionServiceProvider = ({
         },
       },
     };
-  }, []);
+  }, [context]);
 
   return (
     <CollectionService.Provider value={value}>

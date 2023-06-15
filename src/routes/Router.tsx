@@ -1,7 +1,9 @@
 import { paths } from "@utils/paths";
 import { lazy, ReactElement, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CreateCollection from "./CreateCollection/CreateCollection";
 import { LandingPage } from "./LandingPage/LandingPage";
+import UserPanel from "./UserPanel/UserPanel";
 
 const ContentWrapper = lazy(() => import("./ContentWrapper/ContentWrapper"));
 const SignIn = lazy(() => import("./SignIn/SignIn"));
@@ -10,11 +12,6 @@ const Protected = lazy(() => import("./Protected/Protected"));
 const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
 const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
-const UserPanel = lazy(() => import("./UserPanel/UserPanel"));
-const CreateCollection = lazy(
-  () => import("./CreateCollection/CreateCollection")
-);
-
 
 export const Router = (): ReactElement => {
   return (
@@ -51,7 +48,7 @@ export const Router = (): ReactElement => {
                 <CollectionPage />
               </Suspense>
             }
-            path={"/collection"}
+            path={paths.collectionTemplate}
           />
           <Route
             element={
@@ -59,7 +56,7 @@ export const Router = (): ReactElement => {
                 <Collections />
               </Suspense>
             }
-            path={"/collections"}
+            path={paths.collections}
           />
           <Route
             element={
@@ -67,7 +64,7 @@ export const Router = (): ReactElement => {
                 <AboutUs />
               </Suspense>
             }
-            path={"/about"}
+            path={paths.about}
           />
           <Route
             element={
@@ -77,25 +74,11 @@ export const Router = (): ReactElement => {
             }
           >
             {/* ----Temp--- */}
-            <Route
-              element={
-                <Suspense fallback={null}>
-                  <UserPanel />
-                </Suspense>
-              }
-              path={paths.profile}
-            />
+            <Route element={<UserPanel />} path={paths.profile} />
             {/* ---------- */}
             {/* afterLogIn for example profile settings create collectons etc*/}
 
-            <Route
-              element={
-                <Suspense fallback={null}>
-                  <CreateCollection />
-                </Suspense>
-              }
-              path={paths.create}
-            />
+            <Route element={<CreateCollection />} path={paths.create} />
           </Route>
         </Route>
       </Routes>

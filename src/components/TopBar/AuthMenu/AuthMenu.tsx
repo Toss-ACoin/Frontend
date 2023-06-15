@@ -53,15 +53,16 @@ export const AuthMenu = (): ReactElement => {
             Profile
           </MenuItem>
         </Link>
-        <MenuItem
-          _hover={{ color: "green.100" }}
-          borderRadius="md"
-          fontWeight="semibold"
-          px="4"
-        >
-          Create collection
-        </MenuItem>
-
+        <Link to={paths.create}>
+          <MenuItem
+            _hover={{ color: "green.100" }}
+            borderRadius="md"
+            fontWeight="semibold"
+            px="4"
+          >
+            Create collection
+          </MenuItem>
+        </Link>
         <MenuItem
           _hover={{ color: "green.100" }}
           borderRadius="md"
