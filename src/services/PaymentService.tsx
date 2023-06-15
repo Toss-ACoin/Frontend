@@ -47,7 +47,7 @@ const getToken = async () => {
       method: "GET",
       headers: {
         accept: "*/*",
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     }
   );
