@@ -5,7 +5,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { SessionService } from "./SessionService";
+import { SessionService, urlBase } from "./SessionService";
 
 export type PaymentService = {
   //getToken: () => Promise<string>;
@@ -40,22 +40,15 @@ type Props = {
 };
 
 const getToken = async () => {
-  const bodyValue = {
-    grant_type: "client_credentials",
-    client_id: import.meta.env.VITE_PAYU_CLIENT_ID,
-    client_secret: import.meta.env.VITE_PAYU_CLIENT_SECRET,
-  };
   const response = await fetch(
-    `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`,
+    `${urlBase}/accessToken`,
 
     {
-      method: "POST",
+      method: "GET",
       headers: {
-        // accept: "*/*",
-        //"Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/x-www-form-urlencoded",
+        accept: "*/*",
+        "Access-Control-Allow-Origin": "*",
       },
-      body: new URLSearchParams(bodyValue),
     }
   );
   console.log(response);
@@ -63,7 +56,7 @@ const getToken = async () => {
   if (!response.ok) {
     throw new Error("error");
   }
-  return Promise.resolve(result.access_token);
+  return Promise.resolve(result.token);
 };
 
 export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
