@@ -12,6 +12,7 @@ const Protected = lazy(() => import("./Protected/Protected"));
 const Collections = lazy(() => import("./Collections/Collections"));
 const CollectionPage = lazy(() => import("./CollectionPage/CollectionPage"));
 const AboutUs = lazy(() => import("./AboutUs/AboutUs"));
+const Payments = lazy(() => import("./Payments/Payments"));
 
 export const Router = (): ReactElement => {
   return (
@@ -65,6 +66,14 @@ export const Router = (): ReactElement => {
               </Suspense>
             }
             path={paths.about}
+          />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <Payments />
+              </Suspense>
+            }
+            path={paths.payment}
           />
           <Route
             element={

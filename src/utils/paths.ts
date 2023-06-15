@@ -11,6 +11,7 @@ export const paths = {
   signUp: "/signUp",
   create: "/create",
   notFound: "/notFound",
+  payment: "/payment",
 };
 
 export const useCollectionId = (): number => {

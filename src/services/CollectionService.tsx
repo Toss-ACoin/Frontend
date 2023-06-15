@@ -105,8 +105,6 @@ export const CollectionServiceProvider = ({
           );
 
           const result = await response.json();
-          console.log(result);
-          //const result = await Promise.resolve(getCollection(query));
 
           return result;
         },
@@ -130,8 +128,6 @@ export const CollectionServiceProvider = ({
           );
 
           const result = await response.json();
-
-          //const result = await Promise.resolve(getCollection(query));
 
           return result.array;
         },
