@@ -102,7 +102,7 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
             throw new Error("error");
           }
           const response = await fetch(
-            `https://secure.payu.com/api/v2_1/orders`,
+            `https://secure.snd.payu.com/api/v2_1/orders`,
             {
               method: "POST",
               headers: {
@@ -110,7 +110,7 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-              body: new URLSearchParams(JSON.stringify(bodyValue)),
+              body: JSON.stringify(bodyValue),
             }
           );
           const result = await response.json();
