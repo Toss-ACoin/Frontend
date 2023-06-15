@@ -47,7 +47,6 @@ const getToken = async () => {
       method: "GET",
       headers: {
         accept: "*/*",
-        // "Access-Control-Allow-Origin": "*",
       },
     }
   );
@@ -91,6 +90,7 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
             {
               method: "POST",
               headers: {
+                accept: "*/*",
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
