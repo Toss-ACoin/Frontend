@@ -13,6 +13,14 @@ export type DonationData = {
   value: number;
 };
 
+export type AddCollection = {
+  title: string;
+  category: string;
+  goal: string;
+  description: string;
+  image: string;
+};
+
 export type Collection = {
   title: string;
   goal: number;
@@ -43,6 +51,7 @@ export type CollectionService = {
   collectionKey: (query?: string) => CollectionKey;
   collectionList: QueryFunction<Collections[] | undefined, CollectionListKey>;
   collectionListKey: (query?: string) => CollectionListKey;
+  addCollection: (value: AddCollection) => Promise<void>;
 };
 
 export type CollectionServiceNullableValue =
@@ -133,6 +142,23 @@ export const CollectionServiceProvider = ({
         },
         collectionListKey: (query) => {
           return query ? ["collections", query] : ["collections"];
+        },
+        addCollection: async (value) => {
+          const response = await context.value.fetcher(
+            `${urlBase}/createFundraising`,
+            {
+              method: "POST",
+              headers: {
+                accept: "*/*",
+                "Access-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify(value),
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Something went wrong");
+          }
+          return Promise.resolve();
         },
       },
     };

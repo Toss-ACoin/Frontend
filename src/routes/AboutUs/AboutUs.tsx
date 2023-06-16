@@ -11,7 +11,6 @@ const AboutUs = (): ReactElement => {
       bgPosition="top"
       bgRepeat="no-repeat"
       bgSize="cover"
-      h="calc(100vh - 80px)"
       justify="center"
       w="full"
     >
@@ -24,6 +23,7 @@ const AboutUs = (): ReactElement => {
         h="full"
         justifyContent="center"
         padding="10px"
+        pt="80px"
         w="80%"
       >
         <Heading color="white">About Us</Heading>
@@ -32,7 +32,13 @@ const AboutUs = (): ReactElement => {
           We believe that every animal deserves love, care, and a chance at a happy and healthy life.
           Our mission is to support animal welfare causes through fundraising initiatives and community engagement.`}
         </Text>
-        <Text as="b" color="white" fontSize="2xl" padding="10px" textAlign={"left"}>
+        <Text
+          as="b"
+          color="white"
+          fontSize="2xl"
+          padding="10px"
+          textAlign={"left"}
+        >
           {`What We Do:`}
         </Text>
         <Text color="white" fontSize="xl" padding="10px" textAlign="justify">
@@ -55,11 +61,27 @@ const AboutUs = (): ReactElement => {
           organizations to maximize our collective impact. By working together, we can reach more animals in need, 
           share resources and expertise, and create a stronger support network for animal welfare.`}
         </Text>
-        <Text as='b' color="white" fontSize="xl" padding="10px" textAlign="justify">
-          <Link href={Regulations} target="_blank">Our Regulations</Link>
+        <Text
+          as="b"
+          color="white"
+          fontSize="xl"
+          padding="10px"
+          textAlign="justify"
+        >
+          <Link href={Regulations} target="_blank">
+            Our Regulations
+          </Link>
         </Text>
-        <Text as='b' color="white" fontSize="xl" padding="10px" textAlign="justify">
-          <Link href={Policy} target="_blank">Our Policy</Link>
+        <Text
+          as="b"
+          color="white"
+          fontSize="xl"
+          padding="10px"
+          textAlign="justify"
+        >
+          <Link href={Policy} target="_blank">
+            Our Policy
+          </Link>
         </Text>
       </Flex>
     </Flex>

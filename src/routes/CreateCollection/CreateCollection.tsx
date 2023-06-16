@@ -6,13 +6,19 @@ import {
   Heading,
   Input,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { useCollectionService } from "@services/CollectionService";
+import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { ReactElement } from "react";
 import lp from "./assets/lp.png";
 
 const CreateCollection = (): ReactElement => {
+  const collectionService = useCollectionService();
+  const toast = useToast();
+  const { mutate } = useMutation(collectionService.addCollection);
   const collection = useFormik({
     initialValues: {
       title: "",
@@ -22,7 +28,15 @@ const CreateCollection = (): ReactElement => {
       image: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      mutate(values, {
+        onError: () => {
+          toast({
+            status: "error",
+            description: "Something went wrong",
+            title: "Error :(",
+          });
+        },
+      });
     },
   });
 

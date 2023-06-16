@@ -9,11 +9,17 @@ type Props = {
 
 export const ImgCarousel = ({ imgArray }: Props): ReactElement => {
   return (
-    <Carousel width="auto">
+    <Carousel width="800px">
       {imgArray.map((value, key) => {
         return (
           <Box h="full" key={key}>
-            <Image borderRadius="lg" fit="cover" maxH="560px" src={value} />
+            <Image
+              borderRadius="lg"
+              fit="cover"
+              maxH="450px"
+              maxW="800px"
+              src={value}
+            />
           </Box>
         );
       })}
