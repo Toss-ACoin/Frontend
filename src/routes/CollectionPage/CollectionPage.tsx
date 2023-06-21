@@ -16,6 +16,7 @@ import { Navigate } from "react-router-dom";
 import { Bubble } from "./Bubble/Bubble";
 import photo from "./assets/img.png";
 import { ImgCarousel } from "./ImgCarousel/ImgCarousel";
+import { Dontation } from "./Dontation/Dontation";
 
 const CollectionPage = (): ReactElement => {
   const id = useCollectionId();
@@ -55,6 +56,7 @@ const CollectionPage = (): ReactElement => {
           <Button fontSize="3xl" h="16">
             DONATE
           </Button>
+          <Dontation />
         </Flex>
       </Flex>
       <Flex flexDir="column" gap="8">
