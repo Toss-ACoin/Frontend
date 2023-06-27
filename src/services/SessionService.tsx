@@ -152,13 +152,26 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                 method: "POST",
                 headers: {
                   accept: "*/*",
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ value }),
               });
               const result = await response.json();
-              if (!response.ok || !result) {
+              if (!response.ok || !result.User) {
                 throw new Error(result.error);
               }
+              const str =
+                "Basic " +
+                window.btoa(
+                  unescape(
+                    encodeURIComponent(value.email + ":" + value.password)
+                  )
+                );
+              localStorage.setItem("authorization", str);
+              client.setQueryData<SessionServiceState>(getSessionQueryKey(), {
+                status: "auth",
+                authorization: str,
+              });
 
               return Promise.resolve();
             },

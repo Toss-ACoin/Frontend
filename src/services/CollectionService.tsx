@@ -19,6 +19,7 @@ export type AddCollection = {
   goal: string;
   description: string;
   image: string;
+  date: string;
 };
 
 export type Collection = {
@@ -43,15 +44,23 @@ export type Collections = {
   collected_money: number;
 };
 
+type CategoryKey = ["category", string] | ["category"];
 type CollectionKey = ["collection", string] | ["collection"];
-type CollectionListKey = ["collections", string] | ["collections"];
+type CollectionListKey =
+  | ["collections", { query: string; page: number }]
+  | ["collections"];
 
 export type CollectionService = {
   collection: QueryFunction<Collection | undefined, CollectionKey>;
   collectionKey: (query?: string) => CollectionKey;
   collectionList: QueryFunction<Collections[] | undefined, CollectionListKey>;
-  collectionListKey: (query?: string) => CollectionListKey;
+  collectionListKey: (query?: {
+    query: string;
+    page: number;
+  }) => CollectionListKey;
   addCollection: (value: AddCollection) => Promise<void>;
+  getCategory: QueryFunction<string[] | undefined, CategoryKey>;
+  categoryKey: (query?: string) => CategoryKey;
 };
 
 export type CollectionServiceNullableValue =
@@ -126,7 +135,9 @@ export const CollectionServiceProvider = ({
           const [, query] = queryKey;
 
           const response = await fetch(
-            `${urlBase}/search?phrase=${query ? query : ""}`,
+            `${urlBase}/search?phrase=${query ? query.query : ""}&page=${
+              query ? query.page : 0
+            }`,
             {
               method: "GET",
               headers: {
@@ -151,6 +162,7 @@ export const CollectionServiceProvider = ({
               headers: {
                 accept: "*/*",
                 "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
               },
               body: JSON.stringify(value),
             }
@@ -159,6 +171,25 @@ export const CollectionServiceProvider = ({
             throw new Error("Something went wrong");
           }
           return Promise.resolve();
+        },
+        categoryKey: (query) => {
+          return query ? ["category", query] : ["category"];
+        },
+        getCategory: async ({ queryKey }) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const [, query] = queryKey;
+
+          const response = await context.value.fetcher(`${urlBase}/category`, {
+            method: "GET",
+            headers: {
+              accept: "*/*",
+              "Access-Control-Allow-Origin": "*",
+            },
+          });
+
+          const result = await response.json();
+
+          return result.categories_array;
         },
       },
     };

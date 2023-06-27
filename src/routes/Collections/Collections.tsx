@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Highlight,
@@ -27,6 +28,7 @@ const Collections = (): ReactElement => {
   const collectionService = useCollectionService();
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(0);
   const [isPending, startTransition] = useTransition();
   const debouncedSetQueryFilter = useDebounce(
     (query: string) =>
@@ -35,13 +37,14 @@ const Collections = (): ReactElement => {
       }),
     1000
   );
-  const { data, status } = useQuery(
-    collectionService.collectionListKey(query),
+  const { data, status, isLoading } = useQuery(
+    collectionService.collectionListKey({ query, page }),
     collectionService.collectionList
   );
 
+  const pages = [0, 1, 2, 3, 4, 5];
   return (
-    <Flex alignItems="center" flexDir="column" h="calc(100vh - 80px)">
+    <Flex alignItems="center" flexDir="column" h="calc(100vh - 80px)" pb="16">
       <InputGroup
         alignItems="center"
         display="flex"
@@ -243,6 +246,21 @@ const Collections = (): ReactElement => {
             }
           })}
         </SimpleGrid>
+      )}
+      {!isLoading && (
+        <Flex flexDir="row" gap="3">
+          {pages.map((value, key) => {
+            return (
+              <Button
+                key={key}
+                onClick={() => setPage(value)}
+                variant="secondary"
+              >
+                {value}
+              </Button>
+            );
+          })}
+        </Flex>
       )}
     </Flex>
   );

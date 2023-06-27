@@ -106,6 +106,7 @@ export const PaymentServiceProvider = ({ children }: Props): ReactElement => {
             {
               method: "POST",
               headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Accept-Encoding": "gzip, deflate, br",
                 Connection: "keep-alive",
                 Accept: "*/*",

@@ -12,6 +12,14 @@ export const Button: ComponentStyleConfig = {
         backgroundColor: "red.300",
       },
     },
+    secondary: {
+      backgroundColor: "green.400",
+      borderRadius: "full",
+      color: "white",
+      hover: {
+        backgroundColor: "green.500",
+      },
+    },
   },
   defaultProps: {
     variant: "primary",

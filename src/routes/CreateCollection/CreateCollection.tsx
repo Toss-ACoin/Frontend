@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useCollectionService } from "@services/CollectionService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { ReactElement } from "react";
 import lp from "./assets/lp.png";
@@ -18,6 +18,12 @@ import lp from "./assets/lp.png";
 const CreateCollection = (): ReactElement => {
   const collectionService = useCollectionService();
   const toast = useToast();
+
+  const { data } = useQuery(
+    collectionService.categoryKey(),
+    collectionService.getCategory
+  );
+
   const { mutate } = useMutation(collectionService.addCollection);
   const collection = useFormik({
     initialValues: {
@@ -26,6 +32,7 @@ const CreateCollection = (): ReactElement => {
       goal: "",
       description: "",
       image: "",
+      date: "",
     },
     onSubmit: (values) => {
       mutate(values, {
@@ -85,9 +92,13 @@ const CreateCollection = (): ReactElement => {
                 placeholder="Select a proper category"
                 value={collection.values.category}
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {data?.map((value, key) => {
+                  return (
+                    <option key={key} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
               </Select>
             </FormControl>
 
@@ -111,6 +122,16 @@ const CreateCollection = (): ReactElement => {
                 onChange={collection.handleChange}
                 placeholder="Optional description of your collection"
                 value={collection.values.description}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>End date</FormLabel>
+              <Input
+                id="date"
+                name="date"
+                onChange={collection.handleChange}
+                type="date"
+                value={collection.values.date}
               />
             </FormControl>
 

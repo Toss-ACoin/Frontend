@@ -1,6 +1,5 @@
 import { Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { Facebook } from "@components/Facebook/Facebook";
-import { Google } from "@components/Google/Google";
 import { useAnonService, useSessionStatus } from "@services/SessionService";
 import { useMutation } from "@tanstack/react-query";
 import { ReactElement } from "react";
@@ -134,7 +133,7 @@ const SignUpPage = (): ReactElement => {
                 <Divider orientation="horizontal" />
               </Flex>
               <Flex gap="4">
-                <Google />
+                {/* <Google /> */}
                 <Facebook />
               </Flex>
               <Button
