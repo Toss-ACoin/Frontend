@@ -23,10 +23,15 @@ export type User = {
 };
 
 type UserKey = ["user", string] | ["user"];
+type UserCollectionKey = ["userCollection", string] | ["userCollection"];
 
 export type UserService = {
   getUserDate: QueryFunction<User | undefined, UserKey>;
-  getUserCollections: QueryFunction<Collections[] | undefined, UserKey>;
+  getUserCollections: QueryFunction<
+    Collections[] | undefined,
+    UserCollectionKey
+  >;
+  userCollectionKey: (query?: string) => UserCollectionKey;
   getUserList: QueryFunction<User[] | undefined, UserKey>;
   userListKey: (query?: string) => UserKey;
   toggleUserBlock: (value: number) => Promise<void>;
@@ -90,11 +95,14 @@ export const UserServiceProvider = ({ children }: Props): ReactElement => {
           if (!response.ok || !result) {
             throw new Error("Something went wrong");
           }
-          console.log(result);
+
           return result.array;
         },
         userListKey: (query) => {
           return query ? ["user", query] : ["user"];
+        },
+        userCollectionKey: (query) => {
+          return query ? ["userCollection", query] : ["userCollection"];
         },
         getUserList: async ({ queryKey }) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

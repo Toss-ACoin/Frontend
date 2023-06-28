@@ -221,7 +221,6 @@ export const CollectionServiceProvider = ({
             throw new Error("Something went wrong");
           }
           const result = await response.json();
-          console.log(result);
           value.image.forEach(async (file) => {
             const data = new FormData();
             data.append("image", file, file.name);

@@ -93,12 +93,9 @@ export const Router = (): ReactElement => {
                 path={paths.collectionsList}
               />
             </Route>
-            {/* ----Temp--- */}
+
             <Route element={<UserPanel />} path={paths.profile} />
             <Route element={<UserCollections />} path={paths.myCollections} />
-
-            {/* ---------- */}
-            {/* afterLogIn for example profile settings create collectons etc*/}
 
             <Route element={<CreateCollection />} path={paths.create} />
           </Route>
