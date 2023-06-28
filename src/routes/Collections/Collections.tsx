@@ -20,7 +20,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useCollectionService } from "@services/CollectionService";
 import { useQuery } from "@tanstack/react-query";
 import { paths } from "@utils/paths";
-import { ReactElement, useState, useTransition } from "react";
+import { ReactElement, useEffect, useState, useTransition } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Collections = (): ReactElement => {
@@ -29,6 +29,7 @@ const Collections = (): ReactElement => {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
+  const [pages, setPages] = useState<number[]>([]);
   const [isPending, startTransition] = useTransition();
   const debouncedSetQueryFilter = useDebounce(
     (query: string) =>
@@ -42,9 +43,18 @@ const Collections = (): ReactElement => {
     collectionService.collectionList
   );
 
-  const pages = [0, 1, 2, 3, 4, 5];
+  useEffect(() => {
+    if (data) {
+      const array: number[] = new Array(data.pages);
+      for (let i = 0; i < array.length; i++) {
+        array[i] = i + 1;
+      }
+      setPages(array);
+    }
+  }, [data]);
+
   return (
-    <Flex alignItems="center" flexDir="column" h="calc(100vh - 80px)" pb="16">
+    <Flex alignItems="center" flexDir="column" pb="16">
       <InputGroup
         alignItems="center"
         display="flex"
@@ -77,7 +87,7 @@ const Collections = (): ReactElement => {
         <Spinner size="xl" />
       ) : status === "error" || !data ? (
         <Box>Error</Box>
-      ) : data.length <= 0 ? (
+      ) : data.array.length <= 0 ? (
         <Flex alignItems="center" h="full" justifyContent="center" w="full">
           <Flex
             borderRadius="lg"
@@ -135,125 +145,121 @@ const Collections = (): ReactElement => {
           h="full"
           justifyItems="center"
           minChildWidth="72"
-          px="32"
+          px={{ base: "24", xl: "80" }}
           py="8"
           templateRows="24rem"
           w="full"
         >
-          {data.map((item, key) => {
+          {data.array.map((item, key) => {
             const endsIn =
               new Date(item.fundraising_end).getTime() - new Date().getTime();
-            if (endsIn > 0) {
-              return (
-                <Flex
-                  _hover={{
-                    zIndex: "10",
-                    height: "30rem",
-                    bgColor: "green.100",
+            console.log(endsIn);
 
-                    h2: {
-                      "--chakra-line-clamp": "3",
-                      color: "white",
-                    },
-                    img: {
-                      transform: "scale(1.2)",
-                    },
-                    p: {
-                      color: "white",
-                      display: "block",
-                    },
-                    ".progress": {
-                      h: "5",
-                    },
-                  }}
-                  bg="white"
-                  borderColor="dark.100"
-                  borderRadius="lg"
-                  borderWidth="2px"
-                  cursor="pointer"
-                  flexDir="column"
-                  height="96"
-                  key={key}
-                  onClick={() => navigate(paths.collection(item.id))}
-                  overflow="hidden"
+            return (
+              <Flex
+                _hover={{
+                  zIndex: "10",
+                  height: "30rem",
+                  bgColor: "green.100",
+
+                  h2: {
+                    "--chakra-line-clamp": "3",
+                    color: "white",
+                  },
+                  img: {
+                    transform: "scale(1.2)",
+                  },
+                  p: {
+                    color: "white",
+                    display: "block",
+                  },
+                  ".progress": {
+                    h: "5",
+                  },
+                }}
+                bg="white"
+                borderColor="dark.100"
+                borderRadius="lg"
+                borderWidth="2px"
+                cursor="pointer"
+                flexDir="column"
+                height="96"
+                key={key}
+                onClick={() => navigate(paths.collection(item.id))}
+                overflow="hidden"
+                transitionDuration="0.5s"
+                w="72"
+              >
+                <Image
+                  borderTopRadius="md"
+                  h="48"
+                  src="../assets/img.png"
                   transitionDuration="0.5s"
-                  w="72"
+                />
+                <Flex
+                  flexDir="column"
+                  h="full"
+                  justifyContent="space-between"
+                  px="4"
+                  py="8"
                 >
-                  <Image
-                    borderTopRadius="md"
-                    h="48"
-                    src="../assets/img.png"
-                    transitionDuration="0.5s"
-                  />
-                  <Flex
-                    flexDir="column"
-                    h="full"
-                    justifyContent="space-between"
-                    px="4"
-                    py="8"
+                  <Heading
+                    color="black"
+                    noOfLines={1}
+                    size="lg"
+                    transition="--chakra-line-clamp 0.4s, color 0s"
                   >
-                    <Heading
-                      color="black"
-                      noOfLines={1}
-                      size="lg"
-                      transition="--chakra-line-clamp 0.4s, color 0s"
+                    {item.title}
+                  </Heading>
+                  <Progress
+                    borderRadius="lg"
+                    className="progress"
+                    colorScheme="red"
+                    h="3"
+                    transitionDuration="0.5s"
+                    value={(item.collected_money / item.goal) * 100}
+                  />
+                  <Text display="none" transitionDuration="0.5s">
+                    <Highlight
+                      query={`${(
+                        (item.collected_money / item.goal) *
+                        100
+                      ).toFixed(2)}%`}
+                      styles={{ color: "red.300", fontWeight: "bold" }}
                     >
-                      {item.title}
-                    </Heading>
-                    <Progress
-                      borderRadius="lg"
-                      className="progress"
-                      colorScheme="red"
-                      h="3"
-                      transitionDuration="0.5s"
-                      value={(item.collected_money / item.goal) * 100}
-                    />
-                    <Text display="none" transitionDuration="0.5s">
-                      <Highlight
-                        query={`${(
-                          (item.collected_money / item.goal) *
-                          100
-                        ).toFixed(2)}%`}
-                        styles={{ color: "red.300", fontWeight: "bold" }}
-                      >
-                        {`${((item.collected_money / item.goal) * 100).toFixed(
-                          2
-                        )}%`}
-                      </Highlight>
-                    </Text>
-                    <Text color="black" fontSize="xl" fontWeight={"bold"}>
-                      {item.collected_money}$ of {item.goal}$
-                    </Text>
-                    <Text
-                      display="none"
-                      fontWeight="semibold"
-                      transitionDuration="0.5s"
+                      {`${((item.collected_money / item.goal) * 100).toFixed(
+                        2
+                      )}%`}
+                    </Highlight>
+                  </Text>
+                  <Text color="black" fontSize="xl" fontWeight={"bold"}>
+                    {item.collected_money}$ of {item.goal}$
+                  </Text>
+                  <Text
+                    display="none"
+                    fontWeight="semibold"
+                    transitionDuration="0.5s"
+                  >
+                    <Highlight
+                      query={Math.ceil(endsIn / (1000 * 3600 * 24)).toString()}
+                      styles={{ color: "red.300", fontWeight: "bold" }}
                     >
-                      <Highlight
-                        query={Math.ceil(
-                          endsIn / (1000 * 3600 * 24)
-                        ).toString()}
-                        styles={{ color: "red.300", fontWeight: "bold" }}
-                      >
-                        {`Ends in ${Math.ceil(
-                          endsIn / (1000 * 3600 * 24)
-                        )} days`}
-                      </Highlight>
-                    </Text>
-                  </Flex>
+                      {`Ends in ${Math.ceil(endsIn / (1000 * 3600 * 24))} days`}
+                    </Highlight>
+                  </Text>
                 </Flex>
-              );
-            }
+              </Flex>
+            );
           })}
         </SimpleGrid>
       )}
-      {!isLoading && (
+      {!isLoading && data && (
         <Flex flexDir="row" gap="3">
           {pages.map((value, key) => {
             return (
               <Button
                 key={key}
-                onClick={() => setPage(value)}
+                onClick={() => setPage(key)}
                 variant="secondary"
               >
                 {value}

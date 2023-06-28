@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Highlight,
@@ -13,10 +12,10 @@ import { useQuery } from "@tanstack/react-query";
 import { paths, useCollectionId } from "@utils/paths";
 import { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
-import { Bubble } from "./Bubble/Bubble";
 import photo from "./assets/img.png";
+import { Bubble } from "./Bubble/Bubble";
+import { Donation } from "./Donation/Donation";
 import { ImgCarousel } from "./ImgCarousel/ImgCarousel";
-import { Dontation } from "./Dontation/Dontation";
 
 const CollectionPage = (): ReactElement => {
   const id = useCollectionId();
@@ -53,10 +52,7 @@ const CollectionPage = (): ReactElement => {
             </Highlight>
           </Text>
           <Progress borderRadius="lg" colorScheme="red" h="9" value={20} />
-          <Button fontSize="3xl" h="16">
-            DONATE
-          </Button>
-          <Dontation />
+          <Donation collectionId={data.id} name={data.title} />
         </Flex>
       </Flex>
       <Flex flexDir="column" gap="8">
