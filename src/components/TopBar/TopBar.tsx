@@ -46,6 +46,9 @@ export const TopBar = (): ReactElement => {
         <Flex alignItems="center" fontSize="2xl" fontWeight="semibold" gap="8">
           {!clientData || clientData.status !== "auth" ? (
             <UserTopBar />
+          ) : clientData.status === "auth" &&
+            clientData.role !== "ROLE_ADMIN" ? (
+            <UserTopBar />
           ) : (
             clientData.status === "auth" &&
             clientData.role === "ROLE_ADMIN" && <AdminTopBar />

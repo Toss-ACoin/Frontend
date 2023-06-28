@@ -47,6 +47,7 @@ export type Collections = {
   fundraising_start: string;
   fundraising_end: string;
   collected_money: number;
+  available: boolean;
 };
 
 export type CollectionList = {
@@ -78,6 +79,8 @@ export type CollectionService = {
   categoryKey: (query?: string) => CategoryKey;
   uploadImage: (value: File[]) => Promise<void>;
   donate: (value: Donate) => Promise<void>;
+  collectionAdminList: QueryFunction<Collections[] | undefined, CollectionKey>;
+  toggleCollectionAvailable: (value: number) => Promise<void>;
 };
 
 export type CollectionServiceNullableValue =
@@ -276,6 +279,37 @@ export const CollectionServiceProvider = ({
           const result = await response.json();
 
           return result.categories_array;
+        },
+        collectionAdminList: async ({ queryKey }) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const [, query] = queryKey;
+
+          const response = await context.value.fetcher(
+            `${urlBase}/admin/funds`,
+            {
+              method: "GET",
+              headers: {
+                accept: "*/*",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
+
+          const result = await response.json();
+
+          return result.funds;
+        },
+        toggleCollectionAvailable: async (value) => {
+          const response = await context.value.fetcher(
+            `${urlBase}/admin/fund?id=${value}`,
+            {
+              method: "PATCH",
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Error");
+          }
+          return Promise.resolve();
         },
       },
     };
