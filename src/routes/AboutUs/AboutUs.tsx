@@ -1,8 +1,8 @@
 import { Flex, Heading, Link, Text } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import lp from "./assets/lp.png";
 import Policy from "../../../public/docs/Policy.pdf";
 import Regulations from "../../../public/docs/Regulations.pdf";
+import lp from "./assets/lp.png";
 
 const AboutUs = (): ReactElement => {
   return (
@@ -11,6 +11,7 @@ const AboutUs = (): ReactElement => {
       bgPosition="top"
       bgRepeat="no-repeat"
       bgSize="cover"
+      h="calc(100vh - 80px)"
       justify="center"
       w="full"
     >
@@ -23,7 +24,7 @@ const AboutUs = (): ReactElement => {
         h="full"
         justifyContent="center"
         padding="10px"
-        pt="80px"
+        py="16"
         w="80%"
       >
         <Heading color="white">About Us</Heading>
