@@ -45,7 +45,7 @@ export type SessionServiceValue =
       value: AnonService;
     };
 
-type SessionServiceState =
+export type SessionServiceState =
   | {
       authorization: string;
       status: "auth";

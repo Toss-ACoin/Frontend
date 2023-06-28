@@ -12,6 +12,8 @@ export const paths = {
   create: "/create",
   notFound: "/notFound",
   payment: "/payment",
+  usersList: "/users",
+  collectionsList: "/collectionsList",
 };
 
 export const useCollectionId = (): number => {

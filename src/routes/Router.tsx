@@ -1,9 +1,12 @@
 import { paths } from "@utils/paths";
 import { lazy, ReactElement, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminContentWrapper from "./AdminContentWraper/AdminContentWraper";
+import { CollectionsList } from "./CollectionsList/CollectionsList";
 import CreateCollection from "./CreateCollection/CreateCollection";
 import { LandingPage } from "./LandingPage/LandingPage";
 import UserPanel from "./UserPanel/UserPanel";
+import { UsersList } from "./UsersList/UsersList";
 
 const ContentWrapper = lazy(() => import("./ContentWrapper/ContentWrapper"));
 const SignIn = lazy(() => import("./SignIn/SignIn"));
@@ -82,6 +85,13 @@ export const Router = (): ReactElement => {
               </Suspense>
             }
           >
+            <Route element={<AdminContentWrapper />}>
+              <Route element={<UsersList />} path={paths.usersList} />
+              <Route
+                element={<CollectionsList />}
+                path={paths.collectionsList}
+              />
+            </Route>
             {/* ----Temp--- */}
             <Route element={<UserPanel />} path={paths.profile} />
             {/* ---------- */}

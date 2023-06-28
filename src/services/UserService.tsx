@@ -1,3 +1,4 @@
+import { QueryFunction } from "@tanstack/react-query";
 import {
   createContext,
   ReactElement,
@@ -5,11 +6,30 @@ import {
   useContext,
   useMemo,
 } from "react";
+import { Collection } from "./CollectionService";
 import { SessionService, urlBase } from "./SessionService";
+
+export type User = {
+  bank_number: string;
+  role: string;
+  blocked: boolean;
+  birth_date: string;
+  phone: string;
+  surname: string;
+  name: string;
+  funds: Collection[];
+  id: number;
+  email: string;
+};
+
+type UserKey = ["user", string] | ["user"];
 
 export type UserService = {
   getUserDate: () => Promise<void>;
   getUserCollections: () => Promise<void>;
+  getUserList: QueryFunction<User[] | undefined, UserKey>;
+  userListKey: (query?: string) => UserKey;
+  toggleUserBlock: (value: number) => Promise<void>;
 };
 
 export type UserServiceNullableValue =
@@ -52,11 +72,10 @@ export const UserServiceProvider = ({ children }: Props): ReactElement => {
           const response = await context.value.fetcher(`${urlBase}/myAccount`, {
             method: "GET",
           });
-          const result = await response.json();
-          if (!response.ok || !result) {
+          if (!response.ok) {
             throw new Error("Something went wrong");
           }
-          console.log(result);
+
           return Promise.resolve();
         },
         getUserCollections: async () => {
@@ -66,11 +85,44 @@ export const UserServiceProvider = ({ children }: Props): ReactElement => {
               method: "GET",
             }
           );
-          const result = await response.json();
-          if (!response.ok || !result) {
+
+          if (!response.ok) {
             throw new Error("Something went wrong");
           }
-          console.log(result);
+          return Promise.resolve();
+        },
+        userListKey: (query) => {
+          return query ? ["user", query] : ["user"];
+        },
+        getUserList: async ({ queryKey }) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const [, query] = queryKey;
+
+          const response = await context.value.fetcher(
+            `${urlBase}/admin/users`,
+            {
+              method: "GET",
+              headers: {
+                accept: "*/*",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
+
+          const result = await response.json();
+
+          return result.users;
+        },
+        toggleUserBlock: async (value) => {
+          const response = await context.value.fetcher(
+            `${urlBase}/admin/user?id=${value}`,
+            {
+              method: "PATCH",
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Error");
+          }
           return Promise.resolve();
         },
       },

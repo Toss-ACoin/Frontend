@@ -1,12 +1,23 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useSessionStatus } from "@services/SessionService";
+import {
+  getSessionQueryKey,
+  SessionServiceState,
+  useSessionStatus,
+} from "@services/SessionService";
+import { useQueryClient } from "@tanstack/react-query";
 import { paths } from "@utils/paths";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { AdminTopBar } from "./AdminTopBar/AdminTopBar";
 import { AuthMenu } from "./AuthMenu/AuthMenu";
+import { UserTopBar } from "./UserTopBar/UserTopBar";
 
 export const TopBar = (): ReactElement => {
   const sessionStatus = useSessionStatus();
+  const client = useQueryClient();
+  const clientData: SessionServiceState | undefined = client.getQueryData(
+    getSessionQueryKey()
+  );
   return (
     <Flex
       alignItems="center"
@@ -33,26 +44,12 @@ export const TopBar = (): ReactElement => {
           </Flex>
         </Link>
         <Flex alignItems="center" fontSize="2xl" fontWeight="semibold" gap="8">
-          <Link to={paths.collections}>
-            <Text
-              _hover={{
-                color: "red.200",
-              }}
-              transitionDuration="0.2s"
-            >
-              Collections
-            </Text>
-          </Link>
-          <Link to={paths.about}>
-            <Text
-              _hover={{
-                color: "red.200",
-              }}
-              transitionDuration="0.2s"
-            >
-              About us
-            </Text>
-          </Link>
+          {!clientData || clientData.status !== "auth" ? (
+            <UserTopBar />
+          ) : (
+            clientData.status === "auth" &&
+            clientData.role === "ROLE_ADMIN" && <AdminTopBar />
+          )}
         </Flex>
       </Flex>
       {sessionStatus === "auth" ? (
