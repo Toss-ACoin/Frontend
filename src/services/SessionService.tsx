@@ -49,6 +49,7 @@ type SessionServiceState =
   | {
       authorization: string;
       status: "auth";
+      role: string;
     }
   | {
       status: "anon";
@@ -98,11 +99,14 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
     getSessionQueryKey(),
     (): Promise<SessionServiceState> => {
       const authorization = localStorage.getItem("authorization");
+      const role = localStorage.getItem("role");
+
       return Promise.resolve(
-        authorization
+        authorization && role
           ? {
               status: "auth",
               authorization: authorization,
+              role: role,
             }
           : { status: "anon" }
       );
@@ -140,9 +144,11 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                 throw new Error(result.error);
               }
               localStorage.setItem("authorization", str);
+              localStorage.setItem("role", result.user_role[0].authority);
               client.setQueryData<SessionServiceState>(getSessionQueryKey(), {
                 status: "auth",
                 authorization: str,
+                role: result.user_role[0].authority,
               });
               return Promise.resolve();
             },
@@ -168,9 +174,11 @@ export const SessionServiceProvider = ({ children }: Props): ReactElement => {
                   )
                 );
               localStorage.setItem("authorization", str);
+              localStorage.setItem("role", result.user_role[0].authority);
               client.setQueryData<SessionServiceState>(getSessionQueryKey(), {
                 status: "auth",
                 authorization: str,
+                role: result.user_role[0].authority,
               });
 
               return Promise.resolve();

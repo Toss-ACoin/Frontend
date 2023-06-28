@@ -233,7 +233,7 @@ const Collections = (): ReactElement => {
                     </Highlight>
                   </Text>
                   <Text color="black" fontSize="xl" fontWeight={"bold"}>
-                    {item.collected_money}$ of {item.goal}$
+                    {item.collected_money}zł of {item.goal}zł
                   </Text>
                   <Text
                     display="none"

@@ -47,8 +47,8 @@ const CollectionPage = (): ReactElement => {
             {data.title}
           </Text>
           <Text fontSize="2xl" fontWeight="semibold">
-            <Highlight query={`${data.goal}$`} styles={{ fontWeight: "bold" }}>
-              {`${data.collected_money}$ of ${data.goal}$`}
+            <Highlight query={`${data.goal}zł`} styles={{ fontWeight: "bold" }}>
+              {`${data.collected_money}zł of ${data.goal}zł`}
             </Highlight>
           </Text>
           <Progress borderRadius="lg" colorScheme="red" h="9" value={20} />
