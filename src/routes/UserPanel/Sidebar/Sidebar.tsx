@@ -1,7 +1,7 @@
-import { Flex, Text, Heading } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 
-import { ReactElement } from "react";
 import { paths } from "@utils/paths";
+import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = (): ReactElement => {
@@ -34,17 +34,19 @@ const Sidebar = (): ReactElement => {
             My Profile
           </Text>
         </Link>
-        <Text
-          _hover={{
-            color: "red.200",
-          }}
-          color="black"
-          fontSize="lg"
-          fontWeight="semibold"
-          transitionDuration="0.2s"
-        >
-          My Collections
-        </Text>
+        <Link to={paths.myCollections}>
+          <Text
+            _hover={{
+              color: "red.200",
+            }}
+            color="black"
+            fontSize="lg"
+            fontWeight="semibold"
+            transitionDuration="0.2s"
+          >
+            My Collections
+          </Text>
+        </Link>
       </Flex>
     </Flex>
   );

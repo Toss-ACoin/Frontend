@@ -6,7 +6,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { Collection } from "./CollectionService";
+import { Collection, Collections } from "./CollectionService";
 import { SessionService, urlBase } from "./SessionService";
 
 export type User = {
@@ -25,8 +25,8 @@ export type User = {
 type UserKey = ["user", string] | ["user"];
 
 export type UserService = {
-  getUserDate: () => Promise<void>;
-  getUserCollections: () => Promise<void>;
+  getUserDate: QueryFunction<User | undefined, UserKey>;
+  getUserCollections: QueryFunction<Collections[] | undefined, UserKey>;
   getUserList: QueryFunction<User[] | undefined, UserKey>;
   userListKey: (query?: string) => UserKey;
   toggleUserBlock: (value: number) => Promise<void>;
@@ -72,11 +72,11 @@ export const UserServiceProvider = ({ children }: Props): ReactElement => {
           const response = await context.value.fetcher(`${urlBase}/myAccount`, {
             method: "GET",
           });
-          if (!response.ok) {
+          const result = await response.json();
+          if (!response.ok || !result) {
             throw new Error("Something went wrong");
           }
-
-          return Promise.resolve();
+          return result;
         },
         getUserCollections: async () => {
           const response = await context.value.fetcher(
@@ -86,10 +86,12 @@ export const UserServiceProvider = ({ children }: Props): ReactElement => {
             }
           );
 
-          if (!response.ok) {
+          const result = await response.json();
+          if (!response.ok || !result) {
             throw new Error("Something went wrong");
           }
-          return Promise.resolve();
+          console.log(result);
+          return result.array;
         },
         userListKey: (query) => {
           return query ? ["user", query] : ["user"];

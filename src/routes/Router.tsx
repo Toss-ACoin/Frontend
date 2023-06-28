@@ -5,6 +5,7 @@ import AdminContentWrapper from "./AdminContentWraper/AdminContentWraper";
 import { CollectionsList } from "./CollectionsList/CollectionsList";
 import CreateCollection from "./CreateCollection/CreateCollection";
 import { LandingPage } from "./LandingPage/LandingPage";
+import { UserCollections } from "./UserCollections/UserCollections";
 import UserPanel from "./UserPanel/UserPanel";
 import { UsersList } from "./UsersList/UsersList";
 
@@ -94,6 +95,8 @@ export const Router = (): ReactElement => {
             </Route>
             {/* ----Temp--- */}
             <Route element={<UserPanel />} path={paths.profile} />
+            <Route element={<UserCollections />} path={paths.myCollections} />
+
             {/* ---------- */}
             {/* afterLogIn for example profile settings create collectons etc*/}
 

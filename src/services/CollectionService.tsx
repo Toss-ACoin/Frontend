@@ -48,6 +48,7 @@ export type Collections = {
   fundraising_end: string;
   collected_money: number;
   available: boolean;
+  description: string;
 };
 
 export type CollectionList = {
