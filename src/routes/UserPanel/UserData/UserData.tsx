@@ -24,7 +24,6 @@ export const UserData = (): ReactElement => {
     userService.userListKey(),
     userService.getUserDate
   );
-
   return (
     <Flex flexDir="column" w="83%">
       {status === "loading" ? (
@@ -50,7 +49,7 @@ export const UserData = (): ReactElement => {
               marginTop="7"
               maxW="96"
             >
-              Username
+              {data.name}
             </Text>
             <Spacer />
             <Button colorScheme="red" leftIcon={<Edit />} variant="solid">
@@ -86,7 +85,7 @@ export const UserData = (): ReactElement => {
                   </Tr>
                   <Tr>
                     <Td fontWeight="semibold">Phone number</Td>
-                    <Td> {data.phone}</Td>
+                    <Td> {data.phone_number}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="semibold">Date of birth</Td>
@@ -94,7 +93,7 @@ export const UserData = (): ReactElement => {
                   </Tr>
                   <Tr>
                     <Td fontWeight="semibold">Bank account number</Td>
-                    <Td>{data.birth_date}</Td>
+                    <Td>{data.bank_number}</Td>
                   </Tr>
                 </Tbody>
               </Table>

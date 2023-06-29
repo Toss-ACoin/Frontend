@@ -11,8 +11,10 @@ import {
 import { FileGetter } from "@components/FileGetter/FileGetter";
 import { FilePreview, useCollectionService } from "@services/CollectionService";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { paths } from "@utils/paths";
 import { useFormik } from "formik";
 import { ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import lp from "./assets/lp.png";
 
 const CreateCollection = (): ReactElement => {
@@ -44,6 +46,7 @@ const CreateCollection = (): ReactElement => {
   };
 
   const { mutate } = useMutation(collectionService.addCollection);
+  const navigate = useNavigate();
 
   const collection = useFormik({
     initialValues: {
@@ -65,6 +68,14 @@ const CreateCollection = (): ReactElement => {
               description: "Something went wrong",
               title: "Error :(",
             });
+          },
+          onSuccess: () => {
+            toast({
+              status: "success",
+              description: "Your collection has been added",
+              title: "Whooo!",
+            });
+            navigate(paths.collections);
           },
         }
       );
@@ -209,24 +220,6 @@ const CreateCollection = (): ReactElement => {
               </Flex>
             </Flex>
           )}
-          {/* 
-            <Button leftIcon={<AddPhotoAlternateIcon />} variant="solid">
-              Add photo to your collection
-              <Input
-                accept="image/*"
-                aria-hidden="true"
-                height="100%"
-                id="image"
-                left="0"
-                name="image"
-                onChange={(e) => setImage(e?.target?.files[0])}
-                opacity="0"
-                position="absolute"
-                top="0"
-                type="file"
-                width="100%"
-              />
-            </Button> */}
         </form>
       </Flex>
     </Flex>

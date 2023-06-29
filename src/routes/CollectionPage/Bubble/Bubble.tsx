@@ -12,33 +12,38 @@ export const Bubble = ({ data }: Props): ReactElement => {
         <Text>You can be first who donates</Text>
       ) : (
         data.map((value, key) => {
+          const numberOfPayments = Number(value.numberOfPayments);
           return (
             <Flex
               alignItems="center"
               backgroundColor="green.300"
               borderRadius="full"
-              height={`${value.value * 3}px`}
+              height={`${numberOfPayments * 3}px`}
               justifyContent="center"
               key={key}
               minH="16"
               minW="16"
               px="4"
               py="4"
-              width={`${value.value * 3}px`}
+              width={`${numberOfPayments * 3}px`}
             >
               <Text
                 fontSize={
-                  value.value > 99 ? "3xl" : value.value > 50 ? "xl" : "md"
+                  numberOfPayments > 99
+                    ? "3xl"
+                    : numberOfPayments > 50
+                    ? "xl"
+                    : "md"
                 }
                 fontWeight={
-                  value.value > 99
+                  numberOfPayments > 99
                     ? "bold"
-                    : value.value > 50
+                    : numberOfPayments > 50
                     ? "semibold"
                     : "medium"
                 }
               >
-                {value._id}
+                {value.name}
               </Text>
             </Flex>
           );

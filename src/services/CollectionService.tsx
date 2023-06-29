@@ -14,8 +14,8 @@ export type FilePreview = {
 };
 
 export type DonationData = {
-  _id: string;
-  value: number;
+  name: string;
+  numberOfPayments: number;
 };
 
 export type AddCollection = {
@@ -34,7 +34,7 @@ export type Collection = {
   image: string[];
   description: string[];
   id: number;
-  donation: DonationData[];
+  transactions: DonationData[];
 };
 
 export type Collections = {

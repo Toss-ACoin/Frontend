@@ -70,7 +70,7 @@ export const FileGetter = ({ files, onFileUpload }: Props): ReactElement => {
           <input {...getInputProps()} />
           <Icon as={ArrowUpwardRoundedIcon} boxSize="8" fill="dark.100" />
           <Text color="dark.100" fontWeight="semibold" textAlign="center">
-            Upload pictures of your clothes, drag some files, or click to select
+            Upload pictures, drag some files, or click to select
           </Text>
         </Flex>
       </Flex>

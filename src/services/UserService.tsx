@@ -14,7 +14,7 @@ export type User = {
   role: string;
   blocked: boolean;
   birth_date: string;
-  phone: string;
+  phone_number: string;
   surname: string;
   name: string;
   funds: Collection[];
